@@ -12,15 +12,15 @@ const { label, value, href } = Astro.props as Props;
   href ? (
     <a
       href={href}
-      class="block rounded-lg border border-black/15 p-4 transition-colors hover:bg-black/5 hover:text-black dark:border-white/20 dark:hover:bg-white/5 dark:hover:text-white"
+      class="block rounded-lg border border-stone-300 bg-stone-50 p-4 shadow-sm transition-all duration-200 hover:-translate-y-px hover:border-stone-500 hover:shadow-md dark:border-stone-700 dark:bg-stone-900/40 dark:hover:border-stone-500"
     >
-      <div class="text-2xl font-semibold text-black dark:text-white">{value}</div>
-      <div class="text-sm">{label}</div>
+      <div class="font-mono text-2xl font-semibold tracking-tight text-stone-950 dark:text-stone-50">{value}</div>
+      <div class="mt-1 text-sm text-stone-500 dark:text-stone-400">{label}</div>
     </a>
   ) : (
-    <div class="rounded-lg border border-black/15 p-4 dark:border-white/20">
-      <div class="text-2xl font-semibold text-black dark:text-white">{value}</div>
-      <div class="text-sm">{label}</div>
+    <div class="rounded-lg border border-stone-300 bg-stone-50 p-4 shadow-sm dark:border-stone-700 dark:bg-stone-900/40">
+      <div class="font-mono text-2xl font-semibold tracking-tight text-stone-950 dark:text-stone-50">{value}</div>
+      <div class="mt-1 text-sm text-stone-500 dark:text-stone-400">{label}</div>
     </div>
   )
 }

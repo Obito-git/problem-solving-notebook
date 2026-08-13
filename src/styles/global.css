@@ -49,6 +49,10 @@ article {
   @apply prose-headings:text-black prose-headings:dark:text-white;
 }
 
+.note-content {
+  @apply pt-2;
+}
+
 article :not(pre) > code {
   background-color: #c9c7c79c;
   color: #1f2937;

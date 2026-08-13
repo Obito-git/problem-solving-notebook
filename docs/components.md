@@ -28,10 +28,10 @@ AI agents that maintain this repository.
 | Component | Contract |
 | --- | --- |
 | `components/AnchorHeading.astro` | Server-rendered anchored heading. Requires `level` (`1` through `6`) and unique `id`; accepts `class`. Use for headings authored in Astro. Markdown headings receive anchors from the build-time rehype pipeline. |
-| `components/ArrowLink.astro` | Catalogue row link. Requires `href`; accepts `class` and standard anchor attributes. Default slot is the bold primary label. Named `end` slot appears before the arrow for a secondary value or status. |
+| `components/ArrowLink.astro` | Elevated catalogue row link. Requires `href`; accepts `class` and standard anchor attributes. Default slot is the bold primary label. Named `end` slot appears before the arrow for a secondary value or status. |
 | `components/StatCard.astro` | Numeric summary card. Requires numeric `value` and text `label`. Optional `href` changes it from static `div` to linked `a`. Use for counts, not general content cards. |
 | `components/Link.astro` | Inline or navigation link. Requires `href`; `external` opens a protected new tab and `underline` defaults to true. Accepts `class`. Do not use for catalogue rows; use `ArrowLink`. |
-| `components/BackToPrev.astro` | Styled return link. Requires semantic fallback `href`; the client runtime also calls browser history when available. |
+| `components/BackToPrev.astro` | Styled semantic return link. Requires fallback `href`; it never depends on browser history. |
 | `components/BackToTop.astro` | Footer-only button. Its `back-to-top` ID is required by `Head.astro`. |
 | `components/NotePage.astro` | Shared detail-note shell. Requires document metadata plus `backHref` and `backLabel`. Named slots: `header`, `toc`, and `after`; default slot is rendered Markdown. Use for LeetCode and Advent detail pages. |
 
@@ -41,8 +41,8 @@ AI agents that maintain this repository.
 | --- | --- |
 | `components/leetcode/ProblemArrowCard.astro` | LeetCode listing row. Takes a mapped `ProblemCardEntry`; composes `ArrowLink` and renders the title plus difficulty badge. |
 | `components/advent/ChallengeArrowCard.astro` | Advent listing row. Takes a mapped `AdventCardEntry`; composes `ArrowLink` and renders day and title. |
-| `components/leetcode/ProblemHeader.astro` | LeetCode note header. Receives LeetCode frontmatter and exposes problem number, title, category, subcategories, difficulty, and official URL. Heading ID is `problem-{num}`. |
-| `components/advent/ChallengeHeader.astro` | Advent note header. Receives Advent frontmatter and exposes year, day, title, and official puzzle URL. Heading ID is `challenge-{year}-{day}`. |
+| `components/leetcode/ProblemHeader.astro` | LeetCode note header. Receives LeetCode frontmatter and renders problem number, title, difficulty, topic, patterns, and official URL. Heading ID is `problem-{num}`. |
+| `components/advent/ChallengeHeader.astro` | Advent note header. Receives Advent frontmatter and renders year, day, title, and official puzzle URL. Heading ID is `challenge-{year}-{day}`. |
 | `components/leetcode/TableOfContents.astro` | Nested Markdown-heading navigation for both collections. Top-level use passes `headings` and renders its own `table-of-contents` heading. Recursive internal use passes `nodes`. Strip the build-time anchor marker from display labels while retaining the original heading slugs. |
 
 ## Markdown And Anchors

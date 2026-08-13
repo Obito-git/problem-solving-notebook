@@ -9,4 +9,11 @@ type Props = {
 const { entry } = Astro.props;
 ---
 
-<ArrowLink href={entry.url}>Day {entry.day}: {entry.title}</ArrowLink>
+<ArrowLink href={entry.url}>
+  <span class="flex items-center gap-3">
+    <span class="font-mono text-xs font-medium text-stone-500 dark:text-stone-400">
+      Day {String(entry.day).padStart(2, "0")}
+    </span>
+    <span>{entry.title}</span>
+  </span>
+</ArrowLink>

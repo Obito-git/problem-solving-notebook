@@ -12,28 +12,29 @@ const { href, class: className, ...rest } = Astro.props as Props;
 <a
   href={href}
   class={cn(
-    "group flex items-center justify-between gap-4 rounded-lg border border-black/15 px-4 py-3 transition-colors hover:bg-black/5 hover:text-black dark:border-white/20 dark:hover:bg-white/5 dark:hover:text-white",
+    "group flex items-center justify-between gap-4 rounded-lg border border-stone-300 bg-stone-50 px-4 py-3.5 text-stone-700 shadow-sm transition-all duration-200 hover:-translate-y-px hover:border-stone-500 hover:text-stone-950 hover:shadow-md dark:border-stone-700 dark:bg-stone-900/40 dark:text-stone-300 dark:hover:border-stone-500 dark:hover:text-stone-50",
     className,
   )}
   {...rest}
 >
-  <span class="min-w-0 font-semibold"><slot /></span>
-  <slot name="end" />
+  <span class="min-w-0 font-semibold leading-snug"><slot /></span>
+  <span class="flex shrink-0 items-center gap-3">
+    <slot name="end" />
   <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 24 24"
-    class="size-5 shrink-0 stroke-2 fill-none stroke-current"
+    class="size-4 stroke-2 fill-none stroke-current transition-transform duration-200 group-hover:translate-x-1"
   >
     <line
       x1="5"
       y1="12"
       x2="19"
       y2="12"
-      class="translate-x-3 scale-x-0 transition-transform duration-300 ease-in-out group-hover:translate-x-0 group-hover:scale-x-100"
+      class="hidden"
     ></line>
     <polyline
       points="12 5 19 12 12 19"
-      class="-translate-x-1 transition-transform duration-300 ease-in-out group-hover:translate-x-0"
     ></polyline>
   </svg>
+  </span>
 </a>

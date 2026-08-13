@@ -18,7 +18,7 @@ const { title, description, backHref, backLabel } = Astro.props as Props;
     <div class="animate">
       <BackToPrev href={backHref}>{backLabel}</BackToPrev>
     </div>
-    <article class="animate">
+    <article class="note-content animate">
       <slot name="header" />
       <slot name="toc" />
       <slot />

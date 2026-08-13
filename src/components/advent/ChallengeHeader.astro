@@ -1,5 +1,6 @@
 ---
 import AnchorHeading from "@components/AnchorHeading.astro";
+import Link from "@components/Link.astro";
 type Props = {
   year: number;
   day: number;
@@ -10,20 +11,14 @@ type Props = {
 const { year, day, title, puzzleUrl } = Astro.props as Props;
 ---
 
-<section class="animate my-5">
-  <p class="text-sm font-sans">{year} / Day {day}</p>
-  <AnchorHeading level={1} id={`challenge-${year}-${day}`} class="mb-4">
+<section class="animate my-8 border-b border-stone-200 pb-8 dark:border-stone-800">
+  <p class="font-mono text-xs font-medium uppercase tracking-[0.16em] text-stone-500 dark:text-stone-400">
+    Advent of Code / {year} / Day {String(day).padStart(2, "0")}
+  </p>
+  <AnchorHeading level={1} id={`challenge-${year}-${day}`} class="mt-3 text-3xl tracking-tight sm:text-4xl">
     Day {day}: {title}
   </AnchorHeading>
-  <div class="flex flex-wrap gap-4 text-xs">
-    <a
-      href={puzzleUrl}
-      target="_blank"
-      rel="noopener noreferrer"
-      class="rounded-lg border p-2 underline"
-    >
-      Puzzle
-    </a>
-  </div>
+  <Link href={puzzleUrl} external class="mt-6 text-sm font-medium">
+    Open official puzzle <span aria-hidden="true">↗</span>
+  </Link>
 </section>
-<hr class="my-4 border-gray-300" />
