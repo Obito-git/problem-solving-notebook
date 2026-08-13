@@ -23,24 +23,24 @@ body {
 }
 
 body {
-  @apply font-sans antialiased;
-  @apply flex flex-col;
-  @apply bg-stone-100 dark:bg-stone-900;
-  @apply text-black/50 dark:text-white/75;
+  @apply flex min-h-screen flex-col bg-stone-50 font-sans antialiased dark:bg-stone-950;
+  @apply text-stone-600 dark:text-stone-300;
 }
 
-header {
-  @apply fixed top-0 left-0 right-0 z-50 py-5;
-  @apply bg-stone-100/75 dark:bg-stone-900/25;
-  @apply backdrop-blur-sm saturate-200;
+.site-header {
+  @apply sticky top-0 z-50 border-b border-stone-200 bg-stone-50/95 backdrop-blur dark:border-stone-800 dark:bg-stone-950/95;
 }
 
-main {
-  @apply flex-1 py-32;
+.site-main {
+  @apply flex-1 py-12 sm:py-16 lg:py-20;
 }
 
-footer {
-  @apply py-5 text-sm;
+.site-footer {
+  @apply mt-auto border-t border-stone-200 bg-stone-100/60 text-stone-500 dark:border-stone-800 dark:bg-stone-900/30 dark:text-stone-400;
+}
+
+.skip-link {
+  @apply fixed left-5 top-3 z-[60] -translate-y-20 rounded-md bg-stone-950 px-3 py-2 text-sm font-medium text-stone-50 transition-transform focus:translate-y-0 dark:bg-stone-50 dark:text-stone-950;
 }
 
 article {
@@ -103,6 +103,14 @@ article a:hover {
 
 .animate.show {
   @apply opacity-100 translate-y-0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }
 
 html #back-to-top {

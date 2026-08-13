@@ -2,26 +2,52 @@
 import Container from "@components/Container.astro";
 import Link from "@components/Link.astro";
 import { SITE, PAGE_METADATA } from "@const/global";
+
+const pathname = Astro.url.pathname.replace(/\/$/, "") || "/";
+const navigation = [
+    { href: PAGE_METADATA.leetcode.url, label: "LeetCode" },
+    { href: PAGE_METADATA.advent.url, label: "Advent" },
+    { href: PAGE_METADATA.about.url, label: "About" },
+];
 ---
 
-<header>
-    <Container>
-        <div class="flex flex-wrap gap-y-2 justify-between">
-            <Link href={PAGE_METADATA.home.url} underline={false}>
-                <div class="font-semibold">
+<header class="site-header">
+    <Container size="wide">
+        <div class="flex min-h-16 flex-wrap items-center justify-between gap-x-6 gap-y-3 py-3">
+            <Link
+                href={PAGE_METADATA.home.url}
+                underline={false}
+                class="group flex items-baseline gap-3"
+            >
+                <span class="font-mono text-xs font-semibold tracking-[0.22em] text-stone-950 dark:text-stone-50">
+                    KERNOX
+                </span>
+                <span class="text-sm text-stone-500 transition-colors group-hover:text-stone-900 dark:text-stone-400 dark:group-hover:text-stone-100">
                     {SITE.name}
-                </div>
+                </span>
             </Link>
-            <nav class="flex gap-1">
-                <Link href={PAGE_METADATA.leetcode.url}> leetcode </Link>
-                <span>
-                    {`/`}
-                </span>
-                <Link href={PAGE_METADATA.advent.url}> advent </Link>
-                <span>
-                    {`/`}
-                </span>
-                <Link href={PAGE_METADATA.about.url}> about </Link>
+            <nav class="flex items-center gap-1" aria-label="Primary navigation">
+                {
+                    navigation.map((item) => {
+                        const active =
+                            pathname === item.href ||
+                            pathname.startsWith(`${item.href}/`);
+                        return (
+                            <Link
+                                href={item.href}
+                                underline={false}
+                                aria-current={active ? "page" : undefined}
+                                class={`rounded-md px-3 py-1.5 text-sm font-medium ${
+                                    active
+                                        ? "bg-stone-900 text-stone-50 hover:text-stone-50 dark:bg-stone-100 dark:text-stone-950 dark:hover:text-stone-950"
+                                        : "text-stone-500 hover:bg-stone-200 hover:text-stone-900 dark:text-stone-400 dark:hover:bg-stone-800 dark:hover:text-stone-100"
+                                }`}
+                            >
+                                {item.label}
+                            </Link>
+                        );
+                    })
+                }
             </nav>
         </div>
     </Container>

@@ -17,11 +17,11 @@ AI agents that maintain this repository.
 
 | Component | Contract |
 | --- | --- |
-| `layouts/PageLayout.astro` | Root document shell. Requires `title` and `description`. Owns `Head`, global header, `main`, and footer. All routable pages use it directly or through `NotePage`. |
+| `layouts/PageLayout.astro` | Root document shell. Requires `title` and `description`. Owns `Head`, skip link, global header, identified `main`, and footer. All routable pages use it directly or through `NotePage`. |
 | `components/Head.astro` | Global metadata, fonts, `ClientRouter`, and the small client runtime. The runtime owns theme selection, entry animation, back-to-top behavior, and the home collection tabs. Do not add static-Markdown DOM transforms here. |
-| `components/Container.astro` | Standard centered content width and horizontal padding. Use for all page-level content. |
-| `components/Header.astro` | Site-wide primary navigation. Route labels and destinations come from `PAGE_METADATA`. |
-| `components/Footer.astro` | Site-wide footer, theme controls, and `BackToTop`. Button IDs are consumed by `Head.astro`. |
+| `components/Container.astro` | Standard centered page frame. `size` defaults to `content` for reading pages; use `wide` for catalogue pages and global chrome. Accepts `class`. |
+| `components/Header.astro` | Site-wide primary navigation. Route labels and destinations come from `PAGE_METADATA`; the current collection route receives `aria-current="page"`. |
+| `components/Footer.astro` | Site-wide footer, theme controls, and `BackToTop`. Theme button IDs are consumed by `Head.astro`. |
 
 ## Generic Primitives
 
@@ -30,7 +30,7 @@ AI agents that maintain this repository.
 | `components/AnchorHeading.astro` | Server-rendered anchored heading. Requires `level` (`1` through `6`) and unique `id`; accepts `class`. Use for headings authored in Astro. Markdown headings receive anchors from the build-time rehype pipeline. |
 | `components/ArrowLink.astro` | Catalogue row link. Requires `href`; accepts `class` and standard anchor attributes. Default slot is the bold primary label. Named `end` slot appears before the arrow for a secondary value or status. |
 | `components/StatCard.astro` | Numeric summary card. Requires numeric `value` and text `label`. Optional `href` changes it from static `div` to linked `a`. Use for counts, not general content cards. |
-| `components/Link.astro` | Inline or navigation link. Requires `href`; `external` opens a new tab and `underline` defaults to true. Do not use for catalogue rows; use `ArrowLink`. |
+| `components/Link.astro` | Inline or navigation link. Requires `href`; `external` opens a protected new tab and `underline` defaults to true. Accepts `class`. Do not use for catalogue rows; use `ArrowLink`. |
 | `components/BackToPrev.astro` | Styled return link. Requires semantic fallback `href`; the client runtime also calls browser history when available. |
 | `components/BackToTop.astro` | Footer-only button. Its `back-to-top` ID is required by `Head.astro`. |
 | `components/NotePage.astro` | Shared detail-note shell. Requires document metadata plus `backHref` and `backLabel`. Named slots: `header`, `toc`, and `after`; default slot is rendered Markdown. Use for LeetCode and Advent detail pages. |
