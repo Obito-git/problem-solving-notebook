@@ -1,19 +1,7 @@
-import { OsPostCategory, OsPostSubCategory } from "@const/os";
 import { ProblemCategory, ProblemDifficulty, ProblemSubCategory } from "@const/leetcode";
-import type { CardEntry, ProblemCardEntry } from "@types";
+import type { AdventCardEntry, ProblemCardEntry } from "@types";
 import { defineCollection, z, type CollectionEntry } from "astro:content";
 import type { ContentCollection } from "@const/global";
-
-const os = defineCollection({
-  type: "content",
-  schema: z.object({
-    title: z.string(),
-    description: z.string(),
-    category: z.nativeEnum(OsPostCategory),
-    subcategory: z.nativeEnum(OsPostSubCategory),
-    draft: z.boolean().optional()
-  }),
-});
 
 const leetcode = defineCollection({
   type: "content",
@@ -23,18 +11,21 @@ const leetcode = defineCollection({
     category: z.nativeEnum(ProblemCategory),
     subcategories: z.array(z.nativeEnum(ProblemSubCategory)),
     difficulty: z.nativeEnum(ProblemDifficulty),
-    url: z.string(),
+    url: z.string().url(),
     draft: z.boolean().optional()
   }),
 });
 
-export function mapToCardEntry(schema: CollectionEntry<ContentCollection.OS>): CardEntry {
-  return {
-    title: schema.data.title,
-    description: schema.data.description,
-    url: `/${schema.collection}/${schema.slug}`
-  };
-}
+const advent = defineCollection({
+  type: "content",
+  schema: z.object({
+    year: z.number().int().min(2015),
+    day: z.number().int().min(1).max(25),
+    title: z.string(),
+    puzzleUrl: z.string().url(),
+    draft: z.boolean().optional()
+  }),
+});
 
 export function mapToProblemCardEntry(schema: CollectionEntry<ContentCollection.LEETCODE>): ProblemCardEntry {
   return {
@@ -44,4 +35,12 @@ export function mapToProblemCardEntry(schema: CollectionEntry<ContentCollection.
   };
 }
 
-export const collections = { os: os, leetcode: leetcode };
+export function mapToAdventCardEntry(schema: CollectionEntry<ContentCollection.ADVENT>): AdventCardEntry {
+  return {
+    day: schema.data.day,
+    title: schema.data.title,
+    url: `/${schema.collection}/${schema.data.year}/${schema.data.day}`
+  };
+}
+
+export const collections = { leetcode: leetcode, advent: advent };

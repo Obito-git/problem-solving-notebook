@@ -1,19 +1,19 @@
-## kernOx website
+## Algorithm Notes
 
-deployed prod link: [https://kernox.me/](https://kernox.me/)
+A Rust-focused notebook of solved LeetCode problems and Advent of Code notes,
+including original explanations, implementation, complexity analysis, and diagrams.
 
-### Code todo
+Production: [https://kernox.me/](https://kernox.me/)
 
-- review robots.txt
-- add filters to leetcode problems search and search only in leetcode problems, not on every page
-- refactor leetcode page, when too much problems will be there
+### Future work
 
-- add another variable to the leetcode problem schema, to show similar problems. example valid anagram and group anagrams
-- refactor the rendered subcategories on problem page, see 347. Top K Frequent Elements
-- make leetcode button more visible on the problem page
-- find a way to write powers in markdown instead <sup>
+- Add scoped search and topic/difficulty filters.
+- Add similar-problem links to the problem schema.
+- Improve long topic lists and problem-page subcategory rendering.
+- Expand Advent challenge notes and diagrams.
+- Add AI-assisted workflows for structured notes and diagrams.
 
-### Problems todo
+### Planned problems
 
 150. Evaluate Reverse Polish Notation - solve via recursion and DFA and probably find a solution to replace vec by linked list for brute force solution
 36. Valid Sudoku - solve using bitwise operators to reducte space complexity

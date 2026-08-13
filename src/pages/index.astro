@@ -1,11 +1,35 @@
 ---
+import { getCollection } from "astro:content";
 import Container from "@components/Container.astro";
 import PageLayout from "@layouts/PageLayout.astro";
-import ArrowCard from "@components/os/ArrowCard.astro";
-import { PAGE_METADATA } from "@const/global";
-import { OsPostCategory, OS_CATEGORY_CARD_ENTRIES } from "@const/os";
-import { CATEGORY_CARD_ENTRIES, ProblemCategory } from "@const/leetcode";
-import Link from "@components/Link.astro";
+import { ContentCollection, PAGE_METADATA } from "@const/global";
+import { ProblemCategory, ProblemDifficulty } from "@const/leetcode";
+
+const solvedProblems = (await getCollection(ContentCollection.LEETCODE)).filter(
+    (problem) => !problem.data.draft,
+);
+const adventChallenges = (await getCollection(ContentCollection.ADVENT)).filter(
+    (challenge) => !challenge.data.draft,
+);
+const documentedCount = solvedProblems.length + adventChallenges.length;
+const categories = Object.values(ProblemCategory)
+    .map((category) => ({
+        name: category,
+        count: solvedProblems.filter((problem) => problem.data.category === category).length,
+    }))
+    .filter((category) => category.count > 0);
+const difficultyCounts = Object.values(ProblemDifficulty)
+    .map((difficulty) => ({
+        name: difficulty,
+        count: solvedProblems.filter((problem) => problem.data.difficulty === difficulty).length,
+    }))
+    .filter((difficulty) => difficulty.count > 0);
+const adventYears = [...new Set(adventChallenges.map((challenge) => challenge.data.year))]
+    .sort((left, right) => right - left)
+    .map((year) => ({
+        year,
+        count: adventChallenges.filter((challenge) => challenge.data.year === year).length,
+    }));
 ---
 
 <PageLayout
@@ -13,84 +37,121 @@ import Link from "@components/Link.astro";
     description={PAGE_METADATA.home.description}
 >
     <Container>
-        <h4 class="animate font-semibold text-black dark:text-white">
-            Welcome to the Rust corner <span class="text-xl">👋🏻</span>
-        </h4>
         <div class="space-y-16">
-            <section class="animate">
-                <article class="space-y-4">
-                    <p>
-                        This series is intended to focus on building a Rust
-                        kernel from scratch for 32-bit systems in its early
-                        stages. 64-bit support will come later, probably along
-                        with implementations for ARM or RISC-V.
-                    </p>
-                    <p>
-                        However, I don't have enough time right now to make it
-                        as polished as I envision it. I will mainly publish my
-                        LeetCode solutions here until my summer vacation in
-                        2025.
-                    </p>
-                    <p>
-                        I plan to keep some kernel pages as a reminder to work
-                        on it every time I visit this site. Have fun!
-                    </p>
-                </article>
+            <section class="animate max-w-2xl space-y-5">
+                <p class="font-serif text-lg leading-8">
+                    A personal notebook for LeetCode and Advent of Code:
+                    solved problems, tests, trade-offs, and diagrams. Most
+                    solutions are implemented in Rust. Entries stay focused on
+                    the reasoning behind each solution.
+                </p>
             </section>
 
             <section class="animate space-y-6">
-                <h5 class="font-semibold text-black dark:text-white">
-                    Kernel from scratch
-                </h5>
-                <ul class="flex flex-col gap-4">
-                    {
-                        Object.values(OsPostCategory).map(
-                            (category: OsPostCategory) => (
-                                <li>
-                                    <ArrowCard
-                                        entry={
-                                            OS_CATEGORY_CARD_ENTRIES[category]
-                                        }
-                                    />
-                                </li>
-                            ),
-                        )
-                    }
-                </ul>
-            </section>
-            <section class="animate space-y-6">
-                <div
-                    class="flex flex-wrap gap-y-2 items-center justify-between"
-                >
-                    <h5 class="font-semibold text-black dark:text-white">
-                        Leetcode
-                    </h5>
-                    <Link href={PAGE_METADATA.leetcode.url}>
-                        See all problems
-                    </Link>
+                <h2 class="font-semibold text-black dark:text-white">Collections</h2>
+                <div class="flex gap-2" role="tablist" aria-label="Problem collections">
+                    <button
+                        id="leetcode-tab"
+                        class="collection-tab rounded-lg border border-black bg-black px-4 py-2 text-sm font-semibold text-white dark:border-white dark:bg-white dark:text-black"
+                        type="button"
+                        role="tab"
+                        aria-controls="leetcode-panel"
+                        aria-selected="true"
+                        data-collection-tab="leetcode"
+                    >
+                        LeetCode
+                    </button>
+                    <button
+                        id="advent-tab"
+                        class="collection-tab rounded-lg border border-black/15 px-4 py-2 text-sm font-semibold transition-colors hover:bg-black/5 dark:border-white/20 dark:hover:bg-white/5"
+                        type="button"
+                        role="tab"
+                        aria-controls="advent-panel"
+                        aria-selected="false"
+                        data-collection-tab="advent"
+                    >
+                        Advent of Code
+                    </button>
                 </div>
-                <div
-                    class="border-l-4 pl-4 text-sm font-semibold text-black dark:text-white border-red-500 dark:border-yellow-500"
-                >
-                    <p>
-                        If you're interested in more than just the solutions,
-                        you can also follow the order.
-                    </p>
-                    <p>I've arranged them by topic complexity.</p>
+                <div class="rounded-lg border border-black/15 p-4 dark:border-white/20">
+                    <div class="text-2xl font-semibold text-black dark:text-white">
+                        {documentedCount}
+                    </div>
+                    <div class="text-sm">solved and documented</div>
                 </div>
-                <ul class="flex flex-col gap-4">
-                    {
-                        Object.values(ProblemCategory).map(
-                            (category: ProblemCategory) => (
+                <div id="leetcode-panel" role="tabpanel" aria-labelledby="leetcode-tab" data-collection-panel="leetcode" class="space-y-10">
+                    <section class="space-y-5" aria-label="LeetCode statistics">
+                        <div class="flex items-center justify-between gap-4">
+                            <h3 class="font-semibold text-black dark:text-white">LeetCode</h3>
+                            <a href={PAGE_METADATA.leetcode.url} class="text-sm underline underline-offset-2">
+                                All problems
+                            </a>
+                        </div>
+                        <div class="grid grid-cols-2 gap-3 sm:grid-cols-4">
+                            <div class="rounded-lg border border-black/15 p-4 dark:border-white/20">
+                                <div class="text-2xl font-semibold text-black dark:text-white">
+                                    {solvedProblems.length}
+                                </div>
+                                <div class="text-sm">solved</div>
+                            </div>
+                            {
+                                difficultyCounts.map((difficulty) => (
+                                    <a
+                                        href={`${PAGE_METADATA.leetcode.url}#${difficulty.name.toLowerCase()}`}
+                                        class="rounded-lg border border-black/15 p-4 transition-colors hover:bg-black/5 hover:text-black dark:border-white/20 dark:hover:bg-white/5 dark:hover:text-white"
+                                    >
+                                        <div class="text-2xl font-semibold text-black dark:text-white">
+                                            {difficulty.count}
+                                        </div>
+                                        <div class="text-sm">{difficulty.name}</div>
+                                    </a>
+                                ))
+                            }
+                        </div>
+                    </section>
+                    <section class="space-y-6">
+                        <h3 class="font-semibold text-black dark:text-white">Topics</h3>
+                        <ul class="grid gap-3 sm:grid-cols-2">
+                            {
+                                categories.map((category) => (
+                                    <li>
+                                        <a
+                                            href={`${PAGE_METADATA.leetcode.url}/${category.name}`}
+                                            class="group flex items-center justify-between rounded-lg border border-black/15 px-4 py-4 transition-colors hover:bg-black/5 hover:text-black dark:border-white/20 dark:hover:bg-white/5 dark:hover:text-white"
+                                        >
+                                            <span class="font-semibold">{category.name}</span>
+                                            <span class="text-sm">{category.count} solved</span>
+                                        </a>
+                                    </li>
+                                ))
+                            }
+                        </ul>
+                    </section>
+                </div>
+                <div id="advent-panel" role="tabpanel" aria-labelledby="advent-tab" data-collection-panel="advent" class="hidden space-y-6">
+                    <div class="flex items-center justify-between gap-4">
+                        <h3 class="font-semibold text-black dark:text-white">Advent of Code</h3>
+                        <a href={PAGE_METADATA.advent.url} class="text-sm underline underline-offset-2">
+                            All challenges
+                        </a>
+                    </div>
+                    <p>Completed challenges by year.</p>
+                    <ul class="grid gap-3 sm:grid-cols-2">
+                        {
+                            adventYears.map((entry) => (
                                 <li>
-                                    <ArrowCard
-                                        entry={CATEGORY_CARD_ENTRIES[category]}
-                                    />
+                                    <a
+                                        href={`${PAGE_METADATA.advent.url}/${entry.year}`}
+                                        class="group flex items-center justify-between rounded-lg border border-black/15 px-4 py-4 transition-colors hover:bg-black/5 hover:text-black dark:border-white/20 dark:hover:bg-white/5 dark:hover:text-white"
+                                    >
+                                        <span class="font-semibold">{entry.year}</span>
+                                        <span class="text-sm">{entry.count}/25 completed</span>
+                                    </a>
                                 </li>
-                            ),
-                        )
-                    }
-                </ul>
+                            ))
+                        }
+                    </ul>
+                </div>
             </section>
         </div>
     </Container>

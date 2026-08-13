@@ -85,6 +85,7 @@ const { title, description, image = "/nano.png" } = Astro.props;
     preloadTheme();
     onScroll();
     animate();
+    addHeadingPermalinks();
 
     const backToTop = document.getElementById("back-to-top");
     backToTop?.addEventListener("click", (event) => scrollToTop(event));
@@ -110,6 +111,30 @@ const { title, description, image = "/nano.png" } = Astro.props;
       toggleTheme(window.matchMedia("(prefers-color-scheme: dark)").matches);
     });
 
+    const collectionTabs = document.querySelectorAll("[data-collection-tab]");
+    const collectionPanels = document.querySelectorAll("[data-collection-panel]");
+    collectionTabs.forEach((tab) => {
+      tab.addEventListener("click", () => {
+        const selectedCollection = tab.dataset.collectionTab;
+
+        collectionTabs.forEach((candidate) => {
+          const selected = candidate.dataset.collectionTab === selectedCollection;
+          candidate.setAttribute("aria-selected", String(selected));
+          candidate.classList.toggle("bg-black", selected);
+          candidate.classList.toggle("text-white", selected);
+          candidate.classList.toggle("dark:bg-white", selected);
+          candidate.classList.toggle("dark:text-black", selected);
+        });
+
+        collectionPanels.forEach((panel) => {
+          panel.classList.toggle(
+            "hidden",
+            panel.dataset.collectionPanel !== selectedCollection,
+          );
+        });
+      });
+    });
+
     window
       .matchMedia("(prefers-color-scheme: dark)")
       .addEventListener("change", (event) => {
@@ -128,6 +153,48 @@ const { title, description, image = "/nano.png" } = Astro.props;
       setTimeout(() => {
         element.classList.add("show");
       }, index * 150);
+    });
+  }
+
+  function addHeadingPermalinks() {
+    const headings = document.querySelectorAll("main h1, main h2, main h3, main h4, main h5, main h6");
+    const usedIds = new Set(
+      [...document.querySelectorAll("[id]")].map((element) => element.id),
+    );
+
+    headings.forEach((heading) => {
+      if (heading.querySelector(".heading-permalink")) {
+        return;
+      }
+
+      if (!heading.id) {
+        const baseId = heading.textContent
+          .toLowerCase()
+          .trim()
+          .replace(/[^\w\s-]/g, "")
+          .replace(/\s+/g, "-") || "section";
+        let id = baseId;
+        let suffix = 2;
+
+        while (usedIds.has(id)) {
+          id = `${baseId}-${suffix}`;
+          suffix += 1;
+        }
+
+        heading.id = id;
+        usedIds.add(id);
+      }
+
+      const permalink = document.createElement("a");
+      permalink.className = "heading-permalink";
+      permalink.href = `#${heading.id}`;
+      permalink.title = "Copy link to this section";
+      permalink.setAttribute("aria-label", "Copy link to this section");
+      permalink.textContent = "#";
+      permalink.addEventListener("click", () => {
+        navigator.clipboard?.writeText(new URL(permalink.href).href);
+      });
+      heading.appendChild(permalink);
     });
   }
 

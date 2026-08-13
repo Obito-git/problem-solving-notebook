@@ -12,7 +12,7 @@ subcategories:
         - "Counting"
         - "Quick select"
 difficulty: "Medium"
-url: "https://leetcode.com/problems/valid-parentheses/description/"
+url: "https://leetcode.com/problems/top-k-frequent-elements/description/"
 draft: false
 ---
 

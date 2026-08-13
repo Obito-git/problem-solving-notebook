@@ -2,31 +2,30 @@ import { type Site, type Metadata, type Socials, SitePage } from "@types";
 
 
 export const SITE: Site = {
-    name: "kernOx",
-    slug: "rust kernel from scratch",
+    name: "Problem-solving notes",
     email: "anton@kernox.me",
 };
 
 export const PAGE_METADATA: Record<SitePage, Metadata> = {
     [SitePage.HOME]: {
-        title: "Home",
-        description: "Home.",
+        title: "Problem-solving notes",
+        description: "LeetCode and Advent of Code problem-solving notes.",
         url: "/",
     },
-    [SitePage.OS]: {
-        title: "OS",
-        description: "Kernel from scratch.",
-        url: "/os",
-    },
     [SitePage.ABOUT]: {
-        title: "About me",
-        description: "My description.",
+        title: "About",
+        description: "About this LeetCode solutions notebook.",
         url: "/about",
     },
     [SitePage.LEETCODE]: {
-        title: "Leetcode",
+        title: "LeetCode Solutions",
         description: "My LeetCode solutions.",
         url: "/leetcode",
+    },
+    [SitePage.ADVENT]: {
+        title: "Advent Challenges",
+        description: "My Rust notes for Advent of Code puzzles.",
+        url: "/advent",
     },
 };
 
@@ -43,5 +42,5 @@ export const SOCIALS: Socials = [
 
 export enum ContentCollection {
     LEETCODE = "leetcode",
-    OS = "os"
+    ADVENT = "advent",
 }

@@ -4,40 +4,45 @@ import PageLayout from "@layouts/PageLayout.astro";
 import Container from "@components/Container.astro";
 import Search from "astro-pagefind/components/Search";
 import { ContentCollection, PAGE_METADATA } from "@const/global";
+import { ProblemDifficulty } from "@const/leetcode";
 import ProblemArrowCard from "@components/leetcode/ProblemArrowCard.astro";
 import { mapToProblemCardEntry } from "@content/config";
-import { sortProblemsByDifficulty } from "@lib/utils";
 
 const allProblems: CollectionEntry<typeof ContentCollection.LEETCODE>[] = (
     await getCollection(ContentCollection.LEETCODE)
 ).filter((problem) => !problem.data.draft);
 
-type Acc = {
-    [category: string]: CollectionEntry<ContentCollection.LEETCODE>[];
+type ProblemsByDifficulty = {
+    [difficulty: string]: CollectionEntry<ContentCollection.LEETCODE>[];
 };
 
-const problems: Acc = allProblems.reduce((acc: Acc, problem) => {
-    const category = problem.data.category;
-    if (!acc[category]) {
-        acc[category] = [];
-    }
-    acc[category].push(problem);
-    return acc;
-}, {});
+const problemsByDifficulty = allProblems.reduce(
+    (problems, problem) => {
+        const difficulty = problem.data.difficulty;
+        if (!problems[difficulty]) {
+            problems[difficulty] = [];
+        }
+        problems[difficulty].push(problem);
+        return problems;
+    },
+    {} as ProblemsByDifficulty,
+);
 
-const categories = Object.keys(problems);
+const difficulties = Object.values(ProblemDifficulty).filter(
+    (difficulty) => problemsByDifficulty[difficulty]?.length,
+);
 ---
 
 <PageLayout
     title={PAGE_METADATA.leetcode.title}
-    description={PAGE_METADATA.leetcode.title}
+    description={PAGE_METADATA.leetcode.description}
 >
     <Container>
         <div class="space-y-10">
             <h1
                 class="animate font-semibold text-black dark:text-white text-3xl"
             >
-                Leetcode
+                Solved problems
             </h1>
             <div class="animate">
                 <Search
@@ -48,32 +53,26 @@ const categories = Object.keys(problems);
                 <div
                     class="border-l-4 pl-4 mt-2 text-sm font-semibold text-black dark:text-white border-red-500 dark:border-yellow-500"
                 >
-                    <p>
-                        Right now, the search simply finds any occurrence on
-                        every site page. It will be improved once there are
-                        enough solved problems, allowing for more specific
-                        searches by name or category.
-                    </p>
+                    <p>Search across the published solution notes.</p>
                 </div>
             </div>
             <div class="animate space-y-4">
                 {
-                    categories.map((category) => {
-                        const sortedProblems = sortProblemsByDifficulty(
-                            problems[category],
+                    difficulties.map((difficulty) => {
+                        const problems = problemsByDifficulty[difficulty].sort(
+                            (left, right) => left.data.num - right.data.num,
                         );
                         return (
                             <section
-                                data-key={category}
+                                id={difficulty.toLowerCase()}
                                 class="animate space-y-4"
                             >
-                                {" "}
-                                <div class="font-semibold text-black dark:text-white">
-                                    {category}
-                                </div>
+                                <h2 class="font-semibold text-black dark:text-white">
+                                    {difficulty}
+                                </h2>
                                 <div>
                                     <ul class="flex flex-col gap-4">
-                                        {sortedProblems.map((problem) => (
+                                        {problems.map((problem) => (
                                             <li data-key={problem.slug}>
                                                 <ProblemArrowCard
                                                     entry={mapToProblemCardEntry(

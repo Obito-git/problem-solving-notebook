@@ -1,0 +1,52 @@
+---
+import { getCollection } from "astro:content";
+import BackToPrev from "@components/BackToPrev.astro";
+import Container from "@components/Container.astro";
+import ChallengeArrowCard from "@components/advent/ChallengeArrowCard.astro";
+import { mapToAdventCardEntry } from "@content/config";
+import { ContentCollection, PAGE_METADATA } from "@const/global";
+import PageLayout from "@layouts/PageLayout.astro";
+
+export async function getStaticPaths() {
+  const challenges = (await getCollection(ContentCollection.ADVENT)).filter(
+    (challenge) => !challenge.data.draft,
+  );
+  const years = new Set(challenges.map((challenge) => challenge.data.year));
+  return [...years].map((year) => ({ params: { year: String(year) } }));
+}
+
+const { year } = Astro.params as { year: string };
+const challenges = (await getCollection(ContentCollection.ADVENT))
+  .filter(
+    (challenge) => !challenge.data.draft && challenge.data.year === Number(year),
+  )
+  .sort((left, right) => left.data.day - right.data.day);
+---
+
+<PageLayout
+  title={`Advent Challenges ${year}`}
+  description={`Rust notes for Advent of Code ${year} puzzles.`}
+>
+  <Container>
+    <div class="space-y-10">
+      <div class="animate">
+        <BackToPrev href={PAGE_METADATA.advent.url}>Back to years</BackToPrev>
+      </div>
+      <section class="animate space-y-4">
+        <h1 class="text-3xl font-semibold text-black dark:text-white">
+          Advent Challenges {year}
+        </h1>
+        <p>{challenges.length}/25 challenges completed.</p>
+      </section>
+      <ul class="animate flex flex-col gap-4">
+        {
+          challenges.map((challenge) => (
+            <li data-key={challenge.slug}>
+              <ChallengeArrowCard entry={mapToAdventCardEntry(challenge)} />
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </Container>
+</PageLayout>

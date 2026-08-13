@@ -6,7 +6,7 @@ subcategories:
         - "String"
         - "Stack"
 difficulty: "Easy"
-url: "https://leetcode.com/problems/valid-parentheses/description/"
+url: "https://leetcode.com/problems/valid-palindrome/description/"
 draft: false
 ---
 

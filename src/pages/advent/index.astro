@@ -1,0 +1,52 @@
+---
+import { getCollection } from "astro:content";
+import Container from "@components/Container.astro";
+import Link from "@components/Link.astro";
+import { ContentCollection, PAGE_METADATA } from "@const/global";
+import PageLayout from "@layouts/PageLayout.astro";
+
+const challenges = (await getCollection(ContentCollection.ADVENT)).filter(
+  (challenge) => !challenge.data.draft,
+);
+const years = [...new Set(challenges.map((challenge) => challenge.data.year))].sort(
+  (left, right) => right - left,
+);
+---
+
+<PageLayout
+  title={PAGE_METADATA.advent.title}
+  description={PAGE_METADATA.advent.description}
+>
+  <Container>
+    <div class="space-y-10">
+      <section class="animate max-w-2xl space-y-4">
+        <h1 class="text-3xl font-semibold text-black dark:text-white">
+          Advent Challenges
+        </h1>
+        <p class="font-serif">
+          Personal Rust notes for Advent of Code puzzles. Puzzle text, examples,
+          and inputs stay on the official site; these pages contain only my
+          implementation and notes.
+        </p>
+      </section>
+      <section class="animate space-y-4">
+        <ul class="grid gap-3 sm:grid-cols-2">
+          {
+            years.map((year) => {
+              const completed = challenges.filter(
+                (challenge) => challenge.data.year === year,
+              ).length;
+              return (
+                <li>
+                  <Link href={`${PAGE_METADATA.advent.url}/${year}`}>
+                    {year}: {completed}/25 completed
+                  </Link>
+                </li>
+              );
+            })
+          }
+        </ul>
+      </section>
+    </div>
+  </Container>
+</PageLayout>

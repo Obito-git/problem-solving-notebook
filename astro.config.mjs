@@ -1,5 +1,4 @@
 import { defineConfig } from "astro/config";
-import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 import tailwind from "@astrojs/tailwind";
 import pagefind from "astro-pagefind";
@@ -11,7 +10,6 @@ export default defineConfig({
     astroExpressiveCode({
       themes: ["catppuccin-mocha"],
     }),
-    mdx(),
     sitemap(),
     tailwind(),
     pagefind(),

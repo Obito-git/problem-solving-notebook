@@ -10,241 +10,70 @@ import { SITE, SOCIALS, PAGE_METADATA } from "@const/global";
     description={PAGE_METADATA.about.description}
 >
     <Container>
-        <h4 class="animate font-semibold text-black dark:text-white">
-            Bonjour <span class="text-xl">👋🏻</span>
-        </h4>
         <div class="space-y-16">
-            <section>
+            <section class="animate max-w-2xl space-y-5">
+                <p class="font-semibold text-black dark:text-white">About</p>
+                <h1 class="text-4xl font-semibold tracking-tight text-black dark:text-white">
+                    A working notebook for problem solving.
+                </h1>
                 <article class="space-y-4">
-                    <p class="animate">
-                        My name is Anton. I'm a software developer originally
-                        from Ukraine 🇺🇦, now based in the Yvelines department in
-                        France 🇫🇷 since 2018. I am a graduate of the
+                    <p>
+                        I am Anton, a software developer from Ukraine, based in
+                        France. This site is where I publish my
                         <Link
-                            href="https://42.fr"
-                            aria-label="42 website"
+                            href="https://leetcode.com/"
+                            aria-label="LeetCode website"
                             external
                         >
-                            42 Paris
+                        LeetCode
                         </Link>
-                        school in
-                        <Link
-                            href="https://www.francecompetences.fr/recherche/rncp/36137/"
-                            aria-label="france compétences rncp"
-                            external
-                        >
-                            Information Systems and Networks
-                        </Link>
-                        .
+                        and Advent of Code solutions in Rust.
                     </p>
-                    <p class="animate">
-                        First of all, I would like to thank:
-                        <ul class="animate">
-                            <li>
-                                <Link
-                                    href="https://astro.build"
-                                    aria-label="Astro Framework website"
-                                    external
-                                >
-                                    Astro Framework
-                                </Link>
-                            </li>
-                            <li>
-                                <Link
-                                    href="https://github.com/markhorn-dev"
-                                    aria-label="Mark Horn's github"
-                                    external
-                                >
-                                    Mark Horn
-                                </Link>
-                                for creating the <em>Astro Nano</em> theme that I
-                                use.
-                            </li>
-                            <li>
-                                <Link
-                                    href="https://www.cloudflare.com"
-                                    aria-label="Cloudflare website"
-                                    external
-                                >
-                                    Cloudflare
-                                </Link>
-                                for hosting static websites for free and automatically
-                                deploying them from github.
-                            </li>
-                            <li>
-                                <Link
-                                    href="https://giscus.app"
-                                    aria-label="Giscus website"
-                                    external
-                                >
-                                    Giscus
-                                </Link>
-                                for implementing comments for me.
-                            </li>
-                            <li>
-                                <Link
-                                    href="https://chat.openai.com"
-                                    aria-label="ChatGPT website"
-                                    external
-                                >
-                                    ChatGPT
-                                </Link>
-                                for being my best friend.
-                            </li>
-                        </ul>
-                        <p class="animate">
-                            I don't enjoy front-end development or DevOps, but
-                            these tools help bring this project to life.
-                        </p>
-                        <p class="animate">
-                            The primary goal of this micro-blog is to share my
-                            ambitious hobby: writing an operating system from
-                            scratch in Rust🦀 and assembly. In the future, I
-                            might also dive into writing a compiler,
-                            re-implementing some interesting data structures and
-                            iterators, or even creating a programming language
-                            from scratch. I have several project ideas, but as
-                            every developer knows, it's easy to lose motivation.
-                            This simple website is meant to be a source of
-                            inspiration for myself, even if I end up being the
-                            only one reading it.
-                        </p>
-                        <p class="animate">
-                            My secondary goal is to have a dedicated space to
-                            store my
-                            <Link
-                                href="https://leetcode.com/"
-                                aria-label="leetcode website"
-                                external
-                            >
-                                leetcode
-                            </Link>
-                            solutions, data structures, algorithms, and various mathematical
-                            techniques that can be applied in computer science. I
-                            want to push myself to write and explain problem-solving
-                            approaches. I've often found that I forget things I once
-                            thought I understood well. Having such a repository would
-                            help me quickly refresh my knowledge or simply review
-                            my notes.
-                        </p>
-                        <p class="animate">
-                            At
-                            <Link
-                                href="https://42.fr"
-                                aria-label="42 website"
-                                external
-                            >
-                                42 Paris
-                            </Link>
-                            , we began learning computer science with C, mostly without
-                            the standard library, or with a restricted set of allowed
-                            functions. The first school project was called <span
-                                class="highlight">libft</span
-                            >, where I had to rewrite around 50 standard library
-                            functions like <span class="highlight">strlen</span
-                            >, <span class="highlight">strcpy</span>, <span
-                                class="highlight">strcmp</span
-                            >, and others. One of the early projects was also
-                            implementing <span class="highlight">printf</span>.
-                            For me, the philosophy is simple: if you want to use
-                            something, you should understand how it works
-                            internally. Projects like a
-                            <span class="highlight">mini-shell</span> or <span
-                                class="highlight">malloc</span
-                            > helped develop in me a habit of almost always wanting
-                            to look under the hood to understand how things work
-                            exactly.
-                        </p>
-                        <p class="animate">
-                            I didn’t enjoy C++, and working with C often became
-                            boring for me. To finish school and complete
-                            internships, I shifted to the world of web
-                            development, especially back-end programming. I
-                            picked up basic front-end skills but focused more on
-                            back-end development in Java to start earning some
-                            money.
-                        </p>
-                        <p class="animate">
-                            After completing my internships, I began working as
-                            a software developer at
-                            <Link
-                                href="https://www.kyriba.com/"
-                                aria-label="kyriba web site"
-                                external
-                            >
-                                Kyriba
-                            </Link>
-                            , primarily using Java and the Spring framework. My main
-                            responsibilities include refactoring legacy code, developing
-                            services to ensure consistency and scalability, and creating
-                            shared mechanisms between microservices.
-                        </p>
-                        <p class="animate">
-                            During my work, I discovered Rust🦀 and learned some
-                            basic assembly. I fell in love with Rust🦀, not just
-                            because it isn’t another C-style language, but
-                            because it is multiparadigm and, in my opinion,
-                            incorporates some of the best ideas from the
-                            programming world. Alongside the Cargo package
-                            manager—which is completely missing in C and
-                            C++—Rust🦀 has become my favorite language. I’d like
-                            to try Zig one day, but that’s not on the horizon
-                            just yet.
-                        </p>
-                        <p class="animate">
-                            I hope🤞 to make this blog as detailed as possible,
-                            covering almost all the theory and every line of
-                            code with clear explanations.
-                        </p>
-                        <br />
-                        <p class="animate">
-                            P.S. My cats 🐱: Felicity (left) and Lagertha
-                            (right)
-                        </p>
-                        <img
-                            src="/lagertha-felicity.jpg"
-                            alt="My cats"
-                            class="animate"
-                        />
+                    <p>
+                        Each note records more than a final answer: tests,
+                        alternative approaches, complexity, and diagrams when
+                        they make the idea clearer. It is a place to revisit
+                        patterns and make the reasoning durable.
+                    </p>
+                    <p>
+                        The content is intentionally small and practical. New
+                        solved problems are added as complete notes, not as a
+                        feed of unfinished drafts.
                     </p>
                 </article>
+            </section>
 
-                <section class="animate space-y-4">
-                    <h5 class="font-semibold text-black dark:text-white">
-                        Let's Connect
-                    </h5>
-                    <article>
-                        <p>
-                            If you want to get in touch with me about something
-                            or just to say hi, reach out on social media or send
-                            me an email.
-                        </p>
-                    </article>
-                    <ul class="flex flex-wrap gap-2">
-                        {
-                            SOCIALS.map((SOCIAL) => (
-                                <li class="flex gap-x-2 text-nowrap">
-                                    <Link
-                                        href={SOCIAL.href}
-                                        external
-                                        aria-label={`${SITE.name} on ${SOCIAL.name}`}
-                                    >
-                                        {SOCIAL.name}
-                                    </Link>
-                                    {"/"}
-                                </li>
-                            ))
-                        }
-                        <li class="line-clamp-1">
-                            <Link
-                                href={`mailto:${SITE.email}`}
-                                aria-label={`Email ${SITE.name}`}
-                            >
-                                {SITE.email}
-                            </Link>
-                        </li>
-                    </ul>
-                </section>
+            <section class="animate space-y-4">
+                <h2 class="font-semibold text-black dark:text-white">
+                    Let's connect
+                </h2>
+                <p>
+                    Find me on social media or send an email about a solution.
+                </p>
+                <ul class="flex flex-wrap gap-2">
+                    {
+                        SOCIALS.map((social) => (
+                            <li class="flex gap-x-2 text-nowrap">
+                                <Link
+                                    href={social.href}
+                                    external
+                                    aria-label={`${SITE.name} on ${social.name}`}
+                                >
+                                    {social.name}
+                                </Link>
+                                <span>{"/"}</span>
+                            </li>
+                        ))
+                    }
+                    <li class="line-clamp-1">
+                        <Link
+                            href={`mailto:${SITE.email}`}
+                            aria-label={`Email ${SITE.name}`}
+                        >
+                            {SITE.email}
+                        </Link>
+                    </li>
+                </ul>
             </section>
         </div>
     </Container>

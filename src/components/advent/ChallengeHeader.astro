@@ -1,0 +1,26 @@
+---
+type Props = {
+  year: number;
+  day: number;
+  title: string;
+  puzzleUrl: string;
+};
+
+const { year, day, title, puzzleUrl } = Astro.props as Props;
+---
+
+<section class="animate my-5">
+  <p class="text-sm font-sans">{year} / Day {day}</p>
+  <h1 class="mb-4">Day {day}: {title}</h1>
+  <div class="flex flex-wrap gap-4 text-xs">
+    <a
+      href={puzzleUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="rounded-lg border p-2 underline"
+    >
+      Puzzle
+    </a>
+  </div>
+</section>
+<hr class="my-4 border-gray-300" />

@@ -178,7 +178,6 @@ For the first number, compute `6 - 3 = 3` and store `3` as a key in the hash map
 ---
 
 For the second number, compute `6 - 2 = 4` and store `4` as a key with the value `1` (the index of `2`).
-![Iteration 2: Processing the second number (2)](1-two-sum-edge-case-3.png "Iteration 2: Processing the second number (2)")
 
 ---
 
