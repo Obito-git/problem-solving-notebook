@@ -4,7 +4,7 @@ import AnchorHeading from "@components/AnchorHeading.astro";
 import BackToPrev from "@components/BackToPrev.astro";
 import Container from "@components/Container.astro";
 import ChallengeArrowCard from "@components/advent/ChallengeArrowCard.astro";
-import { mapToAdventCardEntry } from "@content/config";
+import { mapToAdventCardEntry } from "@content.config";
 import { ContentCollection, PAGE_METADATA } from "@const/global";
 import PageLayout from "@layouts/PageLayout.astro";
 
@@ -42,7 +42,7 @@ const challenges = (await getCollection(ContentCollection.ADVENT))
       <ul class="animate flex flex-col gap-4">
         {
           challenges.map((challenge) => (
-            <li data-key={challenge.slug}>
+            <li data-key={challenge.id}>
               <ChallengeArrowCard entry={mapToAdventCardEntry(challenge)} />
             </li>
           ))

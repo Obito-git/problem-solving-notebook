@@ -11,11 +11,12 @@
 
 ## Architecture
 
-- Content schemas: `src/content/config.ts`.
+- Content schemas: `src/content.config.ts`.
 - LeetCode notes: `src/content/leetcode/`.
 - Advent notes: `src/content/advent/`.
 - Reusable UI belongs in `src/components/`.
 - Component contracts and ownership: `docs/components.md`. Read the relevant entry before changing or adding a component.
+- Styling uses Tailwind 4 through `@tailwindcss/vite`; global tokens and CSS live in `src/styles/global.css`.
 - Favour small Astro primitives over new client-side code or framework migrations.
 - Use build-time Markdown transforms for Markdown output. Do not add DOM mutation for static markup.
 
@@ -32,7 +33,7 @@
 - Keep heading anchors server-rendered and preserve matching table-of-contents labels.
 - Keep problem cards, collection navigation, and statistics catalogue-focused rather than blog-focused.
 - Do not resume theme replacement until the relevant component contracts are recorded in `docs/components.md`.
-- Upgrade Astro before substantial additional theme changes; project currently uses Astro 4.
+- Astro 7 requires Node 22.12 or newer in development and deployment.
 
 ## Verification
 

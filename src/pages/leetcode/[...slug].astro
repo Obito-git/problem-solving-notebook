@@ -1,5 +1,5 @@
 ---
-import { type CollectionEntry, getCollection } from "astro:content";
+import { type CollectionEntry, getCollection, render } from "astro:content";
 import type { MarkdownHeading } from "astro";
 import NotePage from "@components/NotePage.astro";
 import { ContentCollection, PAGE_METADATA } from "@const/global";
@@ -12,12 +12,11 @@ export async function getStaticPaths() {
   );
   const headingsArr = await Promise.all(
     problems.map(async (problem) => {
-      const data = await problem.render();
-      return data.headings;
+      return (await render(problem)).headings;
     }),
   );
   return problems.map((problem, index) => ({
-    params: { slug: problem.slug },
+    params: { slug: problem.id },
     props: { ...problem, headings: headingsArr[index] },
   }));
 }
@@ -27,7 +26,7 @@ type Props = CollectionEntry<ContentCollection.LEETCODE> & {
 };
 
 const problem = Astro.props as Props;
-const { Content } = await problem.render();
+const { Content } = await render(problem);
 ---
 
 <NotePage

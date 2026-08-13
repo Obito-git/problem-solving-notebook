@@ -18,7 +18,7 @@ AI agents that maintain this repository.
 | Component | Contract |
 | --- | --- |
 | `layouts/PageLayout.astro` | Root document shell. Requires `title` and `description`. Owns `Head`, global header, `main`, and footer. All routable pages use it directly or through `NotePage`. |
-| `components/Head.astro` | Global metadata, fonts, view transitions, and the small client runtime. The runtime owns theme selection, entry animation, back-to-top behavior, and the home collection tabs. Do not add static-Markdown DOM transforms here. |
+| `components/Head.astro` | Global metadata, fonts, `ClientRouter`, and the small client runtime. The runtime owns theme selection, entry animation, back-to-top behavior, and the home collection tabs. Do not add static-Markdown DOM transforms here. |
 | `components/Container.astro` | Standard centered content width and horizontal padding. Use for all page-level content. |
 | `components/Header.astro` | Site-wide primary navigation. Route labels and destinations come from `PAGE_METADATA`. |
 | `components/Footer.astro` | Site-wide footer, theme controls, and `BackToTop`. Button IDs are consumed by `Head.astro`. |
@@ -47,7 +47,7 @@ AI agents that maintain this repository.
 
 ## Markdown And Anchors
 
-- `astro.config.mjs` applies `rehype-slug` and `rehype-autolink-headings` at build time.
+- `astro.config.mjs` applies `rehype-slug` and `rehype-autolink-headings` through the Unified Markdown processor at build time.
 - Markdown heading links must use IDs from Astro's rendered heading metadata.
 - Astro-authored headings use `AnchorHeading` with deliberate stable IDs.
 - After changing Markdown, headings, anchors, or table-of-contents behavior, inspect generated `dist` HTML in addition to the normal build and lint checks.
@@ -56,6 +56,8 @@ AI agents that maintain this repository.
 
 - Nano remains an implementation base until each retained responsibility has a
   purpose-built replacement.
+- Tailwind 4 is configured through `@tailwindcss/vite`; keep theme tokens and
+  custom CSS in `src/styles/global.css`, not a legacy Tailwind config file.
 - Preserve static output, dark mode, Pagefind search, responsive navigation,
   source links, diagrams, and code blocks throughout replacement.
 - Remove old theme code only when it has no consumers and an equivalent

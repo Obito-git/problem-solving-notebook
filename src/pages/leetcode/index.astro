@@ -3,11 +3,11 @@ import { type CollectionEntry, getCollection } from "astro:content";
 import AnchorHeading from "@components/AnchorHeading.astro";
 import PageLayout from "@layouts/PageLayout.astro";
 import Container from "@components/Container.astro";
-import Search from "astro-pagefind/components/Search";
+import Search from "astro-pagefind/components/Search.astro";
 import { ContentCollection, PAGE_METADATA } from "@const/global";
 import { ProblemDifficulty } from "@const/leetcode";
 import ProblemArrowCard from "@components/leetcode/ProblemArrowCard.astro";
-import { mapToProblemCardEntry } from "@content/config";
+import { mapToProblemCardEntry } from "@content.config";
 
 const allProblems: CollectionEntry<typeof ContentCollection.LEETCODE>[] = (
     await getCollection(ContentCollection.LEETCODE)
@@ -49,9 +49,7 @@ const difficulties = Object.values(ProblemDifficulty).filter(
             </AnchorHeading>
             <div class="animate">
                 <Search
-                    id="search"
                     className="pagefind-ui"
-                    uiOptions={{ showImages: false }}
                 />
                 <div
                     class="border-l-4 pl-4 mt-2 text-sm font-semibold text-black dark:text-white border-red-500 dark:border-yellow-500"
@@ -77,7 +75,7 @@ const difficulties = Object.values(ProblemDifficulty).filter(
                                 <div>
                                     <ul class="flex flex-col gap-4">
                                         {problems.map((problem) => (
-                                            <li data-key={problem.slug}>
+                                            <li data-key={problem.id}>
                                                 <ProblemArrowCard
                                                     entry={mapToProblemCardEntry(
                                                         problem,

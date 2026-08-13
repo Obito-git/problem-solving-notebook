@@ -4,7 +4,7 @@ import AnchorHeading from "@components/AnchorHeading.astro";
 import PageLayout from "@layouts/PageLayout.astro";
 import Container from "@components/Container.astro";
 import ProblemArrowCard from "@components/leetcode/ProblemArrowCard.astro";
-import { mapToProblemCardEntry } from "@content/config";
+import { mapToProblemCardEntry } from "@content.config";
 import BackToPrev from "@components/BackToPrev.astro";
 import { ContentCollection, PAGE_METADATA } from "@const/global";
 import { sortProblemsByDifficulty } from "@lib/utils";
@@ -66,7 +66,7 @@ const sortedProblem: CollectionEntry<typeof ContentCollection.LEETCODE>[] =
                 <ul class="flex flex-col gap-4">
                     {
                         sortedProblem.map((problem) => (
-                            <li data-key={problem.slug}>
+                            <li data-key={problem.id}>
                                 <ProblemArrowCard
                                     entry={mapToProblemCardEntry(problem)}
                                 />

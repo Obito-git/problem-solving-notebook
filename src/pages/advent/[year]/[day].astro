@@ -1,5 +1,5 @@
 ---
-import { type CollectionEntry, getCollection } from "astro:content";
+import { type CollectionEntry, getCollection, render } from "astro:content";
 import type { MarkdownHeading } from "astro";
 import ChallengeHeader from "@components/advent/ChallengeHeader.astro";
 import NotePage from "@components/NotePage.astro";
@@ -11,7 +11,7 @@ export async function getStaticPaths() {
     (challenge) => !challenge.data.draft,
   );
   const headings = await Promise.all(
-    challenges.map(async (challenge) => (await challenge.render()).headings),
+    challenges.map(async (challenge) => (await render(challenge)).headings),
   );
   return challenges.map((challenge, index) => ({
     params: {
@@ -27,7 +27,7 @@ type Props = CollectionEntry<ContentCollection.ADVENT> & {
 };
 
 const challenge = Astro.props as Props;
-const { Content } = await challenge.render();
+const { Content } = await render(challenge);
 ---
 
 <NotePage
