@@ -107,30 +107,6 @@ const { title, description, image = "/nano.png" } = Astro.props;
       toggleTheme(window.matchMedia("(prefers-color-scheme: dark)").matches);
     });
 
-    const collectionTabs = document.querySelectorAll("[data-collection-tab]");
-    const collectionPanels = document.querySelectorAll("[data-collection-panel]");
-    collectionTabs.forEach((tab) => {
-      tab.addEventListener("click", () => {
-        const selectedCollection = tab.dataset.collectionTab;
-
-        collectionTabs.forEach((candidate) => {
-          const selected = candidate.dataset.collectionTab === selectedCollection;
-          candidate.setAttribute("aria-selected", String(selected));
-          candidate.classList.toggle("bg-black", selected);
-          candidate.classList.toggle("text-white", selected);
-          candidate.classList.toggle("dark:bg-white", selected);
-          candidate.classList.toggle("dark:text-black", selected);
-        });
-
-        collectionPanels.forEach((panel) => {
-          panel.classList.toggle(
-            "hidden",
-            panel.dataset.collectionPanel !== selectedCollection,
-          );
-        });
-      });
-    });
-
     window
       .matchMedia("(prefers-color-scheme: dark)")
       .addEventListener("change", (event) => {

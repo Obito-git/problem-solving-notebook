@@ -18,7 +18,7 @@ AI agents that maintain this repository.
 | Component | Contract |
 | --- | --- |
 | `layouts/PageLayout.astro` | Root document shell. Requires `title` and `description`. Owns `Head`, skip link, global header, identified `main`, and footer. All routable pages use it directly or through `NotePage`. |
-| `components/Head.astro` | Global metadata, fonts, `ClientRouter`, and the small client runtime. The runtime owns theme selection, entry animation, back-to-top behavior, and the home collection tabs. Do not add static-Markdown DOM transforms here. |
+| `components/Head.astro` | Global metadata, fonts, `ClientRouter`, and the small client runtime. The runtime owns theme selection, entry animation, and back-to-top behavior. Do not add static-Markdown DOM transforms here. |
 | `components/Container.astro` | Standard centered page frame. `size` defaults to `content` for reading pages; use `wide` for catalogue pages and global chrome. Accepts `class`. |
 | `components/Header.astro` | Site-wide primary navigation. Route labels and destinations come from `PAGE_METADATA`; the current collection route receives `aria-current="page"`. |
 | `components/Footer.astro` | Site-wide footer, theme controls, and `BackToTop`. Theme button IDs are consumed by `Head.astro`. |

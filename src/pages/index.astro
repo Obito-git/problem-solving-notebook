@@ -41,104 +41,102 @@ const adventYears = [...new Set(adventChallenges.map((challenge) => challenge.da
 >
     <Container size="wide">
         <div class="space-y-16">
-            <section class="animate max-w-2xl space-y-5">
+            <section class="animate max-w-2xl space-y-4">
+                <p class="font-mono text-xs font-semibold uppercase tracking-[0.2em] text-stone-500 dark:text-stone-400">
+                    Kernox / reference notebook
+                </p>
+                <AnchorHeading level={1} id="problem-solving-notes" class="text-4xl font-semibold tracking-tight text-stone-950 dark:text-stone-50">
+                    Problem-solving notes
+                </AnchorHeading>
                 <p class="font-serif text-lg leading-8">
-                    A personal notebook for LeetCode and Advent of Code:
-                    solved problems, tests, trade-offs, and diagrams. Most
-                    solutions are implemented in Rust. Entries stay focused on
-                    the reasoning behind each solution.
+                    LeetCode and Advent of Code solutions, focused on tests,
+                    trade-offs, diagrams, and the reasoning behind each
+                    implementation. Most notes use Rust.
                 </p>
             </section>
 
             <section class="animate space-y-6">
-                <AnchorHeading level={2} id="collections" class="font-semibold text-black dark:text-white">
+                <AnchorHeading level={2} id="snapshot" class="text-xl font-semibold text-stone-950 dark:text-stone-50">
+                    Snapshot
+                </AnchorHeading>
+                <div class="grid gap-3 sm:grid-cols-3">
+                    <StatCard label="documented notes" value={documentedCount} />
+                    <StatCard href={PAGE_METADATA.leetcode.url} label="LeetCode solved" value={solvedProblems.length} />
+                    <StatCard href={PAGE_METADATA.advent.url} label="Advent notes" value={adventChallenges.length} />
+                </div>
+            </section>
+
+            <section class="animate space-y-6">
+                <AnchorHeading level={2} id="collections" class="text-xl font-semibold text-stone-950 dark:text-stone-50">
                     Collections
                 </AnchorHeading>
-                <div class="flex gap-2" role="tablist" aria-label="Problem collections">
-                    <button
-                        id="leetcode-tab"
-                        class="collection-tab rounded-lg border border-black bg-black px-4 py-2 text-sm font-semibold text-white dark:border-white dark:bg-white dark:text-black"
-                        type="button"
-                        role="tab"
-                        aria-controls="leetcode-panel"
-                        aria-selected="true"
-                        data-collection-tab="leetcode"
-                    >
-                        LeetCode
-                    </button>
-                    <button
-                        id="advent-tab"
-                        class="collection-tab rounded-lg border border-black/15 px-4 py-2 text-sm font-semibold transition-colors hover:bg-black/5 dark:border-white/20 dark:hover:bg-white/5"
-                        type="button"
-                        role="tab"
-                        aria-controls="advent-panel"
-                        aria-selected="false"
-                        data-collection-tab="advent"
-                    >
-                        Advent of Code
-                    </button>
-                </div>
-                <StatCard label="solved and documented" value={documentedCount} />
-                <div id="leetcode-panel" role="tabpanel" aria-labelledby="leetcode-tab" data-collection-panel="leetcode" class="space-y-10">
-                    <section class="space-y-5" aria-label="LeetCode statistics">
-                        <div class="flex items-center justify-between gap-4">
-                            <AnchorHeading level={3} id="leetcode" class="font-semibold text-black dark:text-white">
-                                LeetCode
-                            </AnchorHeading>
-                            <a href={PAGE_METADATA.leetcode.url} class="text-sm underline underline-offset-2">
-                                All problems
-                            </a>
-                        </div>
-                        <div class="grid grid-cols-2 gap-3 sm:grid-cols-4">
-                            <StatCard label="solved" value={solvedProblems.length} />
-                            {
-                                difficultyCounts.map((difficulty) => (
-                                    <StatCard
-                                        href={`${PAGE_METADATA.leetcode.url}#${difficulty.name.toLowerCase()}`}
-                                        label={difficulty.name}
-                                        value={difficulty.count}
-                                    />
-                                ))
-                            }
-                        </div>
-                    </section>
-                    <section class="space-y-6">
-                        <AnchorHeading level={3} id="topics" class="font-semibold text-black dark:text-white">
-                            Topics
-                        </AnchorHeading>
-                        <ul class="grid gap-3 sm:grid-cols-2">
-                            {
-                                categories.map((category) => (
-                                    <li>
-                                        <ArrowLink href={`${PAGE_METADATA.leetcode.url}/${category.name}`} class="py-4">
-                                            {category.name}
-                                            <span slot="end" class="text-sm font-normal">
-                                                {category.count} solved
-                                            </span>
-                                        </ArrowLink>
-                                    </li>
-                                ))
-                            }
-                        </ul>
-                    </section>
-                </div>
-                <div id="advent-panel" role="tabpanel" aria-labelledby="advent-tab" data-collection-panel="advent" class="hidden space-y-6">
-                    <div class="flex items-center justify-between gap-4">
-                        <AnchorHeading level={3} id="advent-of-code" class="font-semibold text-black dark:text-white">
+                <ul class="grid gap-3 lg:grid-cols-2">
+                    <li>
+                        <ArrowLink href={PAGE_METADATA.leetcode.url} class="py-5">
+                            LeetCode solutions
+                            <span slot="end" class="text-sm font-normal text-stone-500 dark:text-stone-400">
+                                {solvedProblems.length} solved
+                            </span>
+                        </ArrowLink>
+                    </li>
+                    <li>
+                        <ArrowLink href={PAGE_METADATA.advent.url} class="py-5">
                             Advent of Code
-                        </AnchorHeading>
-                        <a href={PAGE_METADATA.advent.url} class="text-sm underline underline-offset-2">
-                            All challenges
-                        </a>
+                            <span slot="end" class="text-sm font-normal text-stone-500 dark:text-stone-400">
+                                {adventChallenges.length} notes
+                            </span>
+                        </ArrowLink>
+                    </li>
+                </ul>
+            </section>
+
+            <div class="grid gap-12 lg:grid-cols-2">
+                <section class="animate space-y-6">
+                    <AnchorHeading level={2} id="leetcode-topics" class="text-xl font-semibold text-stone-950 dark:text-stone-50">
+                        LeetCode topics
+                    </AnchorHeading>
+                    <div class="grid grid-cols-2 gap-3 sm:grid-cols-4">
+                        {
+                            difficultyCounts.map((difficulty) => (
+                                <StatCard
+                                    href={`${PAGE_METADATA.leetcode.url}#${difficulty.name.toLowerCase()}`}
+                                    label={difficulty.name}
+                                    value={difficulty.count}
+                                />
+                            ))
+                        }
                     </div>
-                    <p>Completed challenges by year.</p>
-                    <ul class="grid gap-3 sm:grid-cols-2">
+                    <ul class="space-y-3">
+                        {
+                            categories.map((category) => (
+                                <li>
+                                    <ArrowLink href={`${PAGE_METADATA.leetcode.url}/${category.name}`}>
+                                        {category.name}
+                                        <span slot="end" class="text-sm font-normal text-stone-500 dark:text-stone-400">
+                                            {category.count} solved
+                                        </span>
+                                    </ArrowLink>
+                                </li>
+                            ))
+                        }
+                    </ul>
+                </section>
+
+                <section class="animate space-y-6">
+                    <AnchorHeading level={2} id="advent-progress" class="text-xl font-semibold text-stone-950 dark:text-stone-50">
+                        Advent progress
+                    </AnchorHeading>
+                    <p class="max-w-md font-serif leading-7 text-stone-600 dark:text-stone-300">
+                        Implementation notes by event year. Puzzle text, examples,
+                        and inputs remain on the official site.
+                    </p>
+                    <ul class="space-y-3">
                         {
                             adventYears.map((entry) => (
                                 <li>
-                                    <ArrowLink href={`${PAGE_METADATA.advent.url}/${entry.year}`} class="py-4">
+                                    <ArrowLink href={`${PAGE_METADATA.advent.url}/${entry.year}`}>
                                         {entry.year}
-                                        <span slot="end" class="text-sm font-normal">
+                                        <span slot="end" class="text-sm font-normal text-stone-500 dark:text-stone-400">
                                             {entry.count}/25 completed
                                         </span>
                                     </ArrowLink>
@@ -146,8 +144,8 @@ const adventYears = [...new Set(adventChallenges.map((challenge) => challenge.da
                             ))
                         }
                     </ul>
-                </div>
-            </section>
+                </section>
+            </div>
         </div>
     </Container>
 </PageLayout>
