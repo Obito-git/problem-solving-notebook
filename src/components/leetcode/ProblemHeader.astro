@@ -1,9 +1,10 @@
 ---
+import AnchorHeading from "@components/AnchorHeading.astro";
 const { num, title, category, subcategories, difficulty, url } = Astro.props;
 ---
 
 <section class="animate my-5">
-    <h2 class="mb-4">{num}. {title}</h2>
+    <AnchorHeading level={1} id={`problem-${num}`} class="mb-4">{num}. {title}</AnchorHeading>
     <div class="flex flex-wrap gap-4 text-xs">
         <div
             class="border rounded-lg p-2 hover:shadow-md transition"

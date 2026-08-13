@@ -69,8 +69,8 @@ article a:hover {
   vertical-align: middle;
 }
 
-:is(h1, h2, h3, h4, h5, h6):hover > .heading-permalink,
-:is(h1, h2, h3, h4, h5, h6):focus-within > .heading-permalink {
+:is(h1, h2, h3, h4, h5, h6):hover .heading-permalink,
+:is(h1, h2, h3, h4, h5, h6):focus-within .heading-permalink {
   opacity: 0.55;
 }
 

@@ -1,5 +1,6 @@
 ---
 import { type CollectionEntry, getCollection } from "astro:content";
+import AnchorHeading from "@components/AnchorHeading.astro";
 import PageLayout from "@layouts/PageLayout.astro";
 import Container from "@components/Container.astro";
 import Search from "astro-pagefind/components/Search";
@@ -39,11 +40,13 @@ const difficulties = Object.values(ProblemDifficulty).filter(
 >
     <Container>
         <div class="space-y-10">
-            <h1
-                class="animate font-semibold text-black dark:text-white text-3xl"
+            <AnchorHeading
+                level={1}
+                id="solved-problems"
+                class="animate text-3xl font-semibold text-black dark:text-white"
             >
                 Solved problems
-            </h1>
+            </AnchorHeading>
             <div class="animate">
                 <Search
                     id="search"
@@ -63,13 +66,14 @@ const difficulties = Object.values(ProblemDifficulty).filter(
                             (left, right) => left.data.num - right.data.num,
                         );
                         return (
-                            <section
-                                id={difficulty.toLowerCase()}
-                                class="animate space-y-4"
-                            >
-                                <h2 class="font-semibold text-black dark:text-white">
+                            <section class="animate space-y-4">
+                                <AnchorHeading
+                                    level={2}
+                                    id={difficulty.toLowerCase()}
+                                    class="font-semibold text-black dark:text-white"
+                                >
                                     {difficulty}
-                                </h2>
+                                </AnchorHeading>
                                 <div>
                                     <ul class="flex flex-col gap-4">
                                         {problems.map((problem) => (

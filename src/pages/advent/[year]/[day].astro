@@ -1,12 +1,10 @@
 ---
 import { type CollectionEntry, getCollection } from "astro:content";
 import type { MarkdownHeading } from "astro";
-import BackToPrev from "@components/BackToPrev.astro";
-import Container from "@components/Container.astro";
 import ChallengeHeader from "@components/advent/ChallengeHeader.astro";
+import NotePage from "@components/NotePage.astro";
 import TableOfContents from "@components/leetcode/TableOfContents.astro";
 import { ContentCollection, PAGE_METADATA } from "@const/global";
-import PageLayout from "@layouts/PageLayout.astro";
 
 export async function getStaticPaths() {
   const challenges = (await getCollection(ContentCollection.ADVENT)).filter(
@@ -32,21 +30,17 @@ const challenge = Astro.props as Props;
 const { Content } = await challenge.render();
 ---
 
-<PageLayout title={challenge.data.title} description={`Rust notes for Advent of Code ${challenge.data.year}, day ${challenge.data.day}: ${challenge.data.title}.`}>
-  <Container>
-    <div class="animate">
-      <BackToPrev href={`${PAGE_METADATA.advent.url}/${challenge.data.year}`}>
-        Back to {challenge.data.year}
-      </BackToPrev>
-    </div>
-    <article class="animate">
-      <ChallengeHeader {...challenge.data} />
-      {
-        challenge.headings.length > 0 ? (
-          <TableOfContents headings={challenge.headings} />
-        ) : null
-      }
-      <Content />
-    </article>
-  </Container>
-</PageLayout>
+<NotePage
+  title={challenge.data.title}
+  description={`Rust notes for Advent of Code ${challenge.data.year}, day ${challenge.data.day}: ${challenge.data.title}.`}
+  backHref={`${PAGE_METADATA.advent.url}/${challenge.data.year}`}
+  backLabel={`Back to ${challenge.data.year}`}
+>
+  <ChallengeHeader slot="header" {...challenge.data} />
+  {
+    challenge.headings.length > 0 ? (
+      <TableOfContents slot="toc" headings={challenge.headings} />
+    ) : null
+  }
+  <Content />
+</NotePage>

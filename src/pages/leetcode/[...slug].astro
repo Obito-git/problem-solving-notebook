@@ -1,9 +1,7 @@
 ---
 import { type CollectionEntry, getCollection } from "astro:content";
 import type { MarkdownHeading } from "astro";
-import PageLayout from "@layouts/PageLayout.astro";
-import Container from "@components/Container.astro";
-import BackToPrev from "@components/BackToPrev.astro";
+import NotePage from "@components/NotePage.astro";
 import { ContentCollection, PAGE_METADATA } from "@const/global";
 import ProblemHeader from "@components/leetcode/ProblemHeader.astro";
 import TableOfContents from "@components/leetcode/TableOfContents.astro";
@@ -32,17 +30,16 @@ const problem = Astro.props as Props;
 const { Content } = await problem.render();
 ---
 
-<PageLayout title={problem.data.title} description={problem.data.title}>
-  <Container>
-    <div class="animate">
-      <BackToPrev href={PAGE_METADATA.leetcode.url}>
-        Back to problems
-      </BackToPrev>
-    </div>
-    <article class="animate">
-      <ProblemHeader {...problem.data} />
-      <TableOfContents headings={problem.headings} />
-      <Content />
+<NotePage
+  title={problem.data.title}
+  description={problem.data.title}
+  backHref={PAGE_METADATA.leetcode.url}
+  backLabel="Back to problems"
+>
+  <ProblemHeader slot="header" {...problem.data} />
+  <TableOfContents slot="toc" headings={problem.headings} />
+  <Content />
+  <Fragment slot="after">
       <script
         is:inline
         src="https://giscus.app/client.js"
@@ -59,6 +56,5 @@ const { Content } = await problem.render();
         data-lang="en"
         crossorigin="anonymous"
         async></script>
-    </article>
-  </Container>
-</PageLayout>
+  </Fragment>
+</NotePage>

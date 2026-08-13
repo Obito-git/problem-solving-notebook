@@ -1,6 +1,9 @@
 ---
 import { getCollection } from "astro:content";
+import AnchorHeading from "@components/AnchorHeading.astro";
+import ArrowLink from "@components/ArrowLink.astro";
 import Container from "@components/Container.astro";
+import StatCard from "@components/StatCard.astro";
 import PageLayout from "@layouts/PageLayout.astro";
 import { ContentCollection, PAGE_METADATA } from "@const/global";
 import { ProblemCategory, ProblemDifficulty } from "@const/leetcode";
@@ -48,7 +51,9 @@ const adventYears = [...new Set(adventChallenges.map((challenge) => challenge.da
             </section>
 
             <section class="animate space-y-6">
-                <h2 class="font-semibold text-black dark:text-white">Collections</h2>
+                <AnchorHeading level={2} id="collections" class="font-semibold text-black dark:text-white">
+                    Collections
+                </AnchorHeading>
                 <div class="flex gap-2" role="tablist" aria-label="Problem collections">
                     <button
                         id="leetcode-tab"
@@ -73,55 +78,44 @@ const adventYears = [...new Set(adventChallenges.map((challenge) => challenge.da
                         Advent of Code
                     </button>
                 </div>
-                <div class="rounded-lg border border-black/15 p-4 dark:border-white/20">
-                    <div class="text-2xl font-semibold text-black dark:text-white">
-                        {documentedCount}
-                    </div>
-                    <div class="text-sm">solved and documented</div>
-                </div>
+                <StatCard label="solved and documented" value={documentedCount} />
                 <div id="leetcode-panel" role="tabpanel" aria-labelledby="leetcode-tab" data-collection-panel="leetcode" class="space-y-10">
                     <section class="space-y-5" aria-label="LeetCode statistics">
                         <div class="flex items-center justify-between gap-4">
-                            <h3 class="font-semibold text-black dark:text-white">LeetCode</h3>
+                            <AnchorHeading level={3} id="leetcode" class="font-semibold text-black dark:text-white">
+                                LeetCode
+                            </AnchorHeading>
                             <a href={PAGE_METADATA.leetcode.url} class="text-sm underline underline-offset-2">
                                 All problems
                             </a>
                         </div>
                         <div class="grid grid-cols-2 gap-3 sm:grid-cols-4">
-                            <div class="rounded-lg border border-black/15 p-4 dark:border-white/20">
-                                <div class="text-2xl font-semibold text-black dark:text-white">
-                                    {solvedProblems.length}
-                                </div>
-                                <div class="text-sm">solved</div>
-                            </div>
+                            <StatCard label="solved" value={solvedProblems.length} />
                             {
                                 difficultyCounts.map((difficulty) => (
-                                    <a
+                                    <StatCard
                                         href={`${PAGE_METADATA.leetcode.url}#${difficulty.name.toLowerCase()}`}
-                                        class="rounded-lg border border-black/15 p-4 transition-colors hover:bg-black/5 hover:text-black dark:border-white/20 dark:hover:bg-white/5 dark:hover:text-white"
-                                    >
-                                        <div class="text-2xl font-semibold text-black dark:text-white">
-                                            {difficulty.count}
-                                        </div>
-                                        <div class="text-sm">{difficulty.name}</div>
-                                    </a>
+                                        label={difficulty.name}
+                                        value={difficulty.count}
+                                    />
                                 ))
                             }
                         </div>
                     </section>
                     <section class="space-y-6">
-                        <h3 class="font-semibold text-black dark:text-white">Topics</h3>
+                        <AnchorHeading level={3} id="topics" class="font-semibold text-black dark:text-white">
+                            Topics
+                        </AnchorHeading>
                         <ul class="grid gap-3 sm:grid-cols-2">
                             {
                                 categories.map((category) => (
                                     <li>
-                                        <a
-                                            href={`${PAGE_METADATA.leetcode.url}/${category.name}`}
-                                            class="group flex items-center justify-between rounded-lg border border-black/15 px-4 py-4 transition-colors hover:bg-black/5 hover:text-black dark:border-white/20 dark:hover:bg-white/5 dark:hover:text-white"
-                                        >
-                                            <span class="font-semibold">{category.name}</span>
-                                            <span class="text-sm">{category.count} solved</span>
-                                        </a>
+                                        <ArrowLink href={`${PAGE_METADATA.leetcode.url}/${category.name}`} class="py-4">
+                                            {category.name}
+                                            <span slot="end" class="text-sm font-normal">
+                                                {category.count} solved
+                                            </span>
+                                        </ArrowLink>
                                     </li>
                                 ))
                             }
@@ -130,7 +124,9 @@ const adventYears = [...new Set(adventChallenges.map((challenge) => challenge.da
                 </div>
                 <div id="advent-panel" role="tabpanel" aria-labelledby="advent-tab" data-collection-panel="advent" class="hidden space-y-6">
                     <div class="flex items-center justify-between gap-4">
-                        <h3 class="font-semibold text-black dark:text-white">Advent of Code</h3>
+                        <AnchorHeading level={3} id="advent-of-code" class="font-semibold text-black dark:text-white">
+                            Advent of Code
+                        </AnchorHeading>
                         <a href={PAGE_METADATA.advent.url} class="text-sm underline underline-offset-2">
                             All challenges
                         </a>
@@ -140,13 +136,12 @@ const adventYears = [...new Set(adventChallenges.map((challenge) => challenge.da
                         {
                             adventYears.map((entry) => (
                                 <li>
-                                    <a
-                                        href={`${PAGE_METADATA.advent.url}/${entry.year}`}
-                                        class="group flex items-center justify-between rounded-lg border border-black/15 px-4 py-4 transition-colors hover:bg-black/5 hover:text-black dark:border-white/20 dark:hover:bg-white/5 dark:hover:text-white"
-                                    >
-                                        <span class="font-semibold">{entry.year}</span>
-                                        <span class="text-sm">{entry.count}/25 completed</span>
-                                    </a>
+                                    <ArrowLink href={`${PAGE_METADATA.advent.url}/${entry.year}`} class="py-4">
+                                        {entry.year}
+                                        <span slot="end" class="text-sm font-normal">
+                                            {entry.count}/25 completed
+                                        </span>
+                                    </ArrowLink>
                                 </li>
                             ))
                         }

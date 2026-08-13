@@ -1,5 +1,6 @@
 ---
 import type { MarkdownHeading } from "astro";
+import AnchorHeading from "@components/AnchorHeading.astro";
 
 interface NestedHeading extends MarkdownHeading {
     children: NestedHeading[];
@@ -27,7 +28,11 @@ function buildNestedHeadings(headings: MarkdownHeading[]): NestedHeading[] {
     const stack = [{ children: nested, depth: 0 }];
 
     for (const heading of headings) {
-        const node: NestedHeading = { ...heading, children: [] };
+        const node: NestedHeading = {
+            ...heading,
+            text: heading.text.replace(/#$/, "").trim(),
+            children: [],
+        };
 
         while (
             stack.length > 0 &&
@@ -46,7 +51,13 @@ function buildNestedHeadings(headings: MarkdownHeading[]): NestedHeading[] {
 ---
 
 <nav>
-    {isTopLevel && <h2>Table of Contents</h2>}
+    {
+        isTopLevel && (
+            <AnchorHeading level={2} id="table-of-contents">
+                Table of Contents
+            </AnchorHeading>
+        )
+    }
     <ul>
         {
             nodes.map((node) => (

@@ -1,0 +1,28 @@
+---
+import BackToPrev from "@components/BackToPrev.astro";
+import Container from "@components/Container.astro";
+import PageLayout from "@layouts/PageLayout.astro";
+
+type Props = {
+  title: string;
+  description: string;
+  backHref: string;
+  backLabel: string;
+};
+
+const { title, description, backHref, backLabel } = Astro.props as Props;
+---
+
+<PageLayout title={title} description={description}>
+  <Container>
+    <div class="animate">
+      <BackToPrev href={backHref}>{backLabel}</BackToPrev>
+    </div>
+    <article class="animate">
+      <slot name="header" />
+      <slot name="toc" />
+      <slot />
+      <slot name="after" />
+    </article>
+  </Container>
+</PageLayout>

@@ -1,4 +1,5 @@
 ---
+import AnchorHeading from "@components/AnchorHeading.astro";
 type Props = {
   year: number;
   day: number;
@@ -11,7 +12,9 @@ const { year, day, title, puzzleUrl } = Astro.props as Props;
 
 <section class="animate my-5">
   <p class="text-sm font-sans">{year} / Day {day}</p>
-  <h1 class="mb-4">Day {day}: {title}</h1>
+  <AnchorHeading level={1} id={`challenge-${year}-${day}`} class="mb-4">
+    Day {day}: {title}
+  </AnchorHeading>
   <div class="flex flex-wrap gap-4 text-xs">
     <a
       href={puzzleUrl}

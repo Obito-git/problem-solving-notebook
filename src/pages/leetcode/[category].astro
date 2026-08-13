@@ -1,5 +1,6 @@
 ---
 import { getCollection, type CollectionEntry } from "astro:content";
+import AnchorHeading from "@components/AnchorHeading.astro";
 import PageLayout from "@layouts/PageLayout.astro";
 import Container from "@components/Container.astro";
 import ProblemArrowCard from "@components/leetcode/ProblemArrowCard.astro";
@@ -49,11 +50,13 @@ const sortedProblem: CollectionEntry<typeof ContentCollection.LEETCODE>[] =
 >
     <Container>
         <div class="space-y-10">
-            <h1
-                class="animate font-semibold text-black dark:text-white text-3xl"
+            <AnchorHeading
+                level={1}
+                id={`leetcode-${selectedCategory.toLowerCase().replaceAll(" ", "-")}`}
+                class="animate text-3xl font-semibold text-black dark:text-white"
             >
                 Leetcode - {selectedCategory}
-            </h1>
+            </AnchorHeading>
             <div class="animate">
                 <BackToPrev href={PAGE_METADATA.leetcode.url}>
                     Back to problems

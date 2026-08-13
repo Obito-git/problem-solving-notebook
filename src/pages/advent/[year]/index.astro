@@ -1,5 +1,6 @@
 ---
 import { getCollection } from "astro:content";
+import AnchorHeading from "@components/AnchorHeading.astro";
 import BackToPrev from "@components/BackToPrev.astro";
 import Container from "@components/Container.astro";
 import ChallengeArrowCard from "@components/advent/ChallengeArrowCard.astro";
@@ -33,9 +34,9 @@ const challenges = (await getCollection(ContentCollection.ADVENT))
         <BackToPrev href={PAGE_METADATA.advent.url}>Back to years</BackToPrev>
       </div>
       <section class="animate space-y-4">
-        <h1 class="text-3xl font-semibold text-black dark:text-white">
+        <AnchorHeading level={1} id={`advent-challenges-${year}`} class="text-3xl font-semibold text-black dark:text-white">
           Advent Challenges {year}
-        </h1>
+        </AnchorHeading>
         <p>{challenges.length}/25 challenges completed.</p>
       </section>
       <ul class="animate flex flex-col gap-4">
