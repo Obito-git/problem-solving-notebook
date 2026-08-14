@@ -3,7 +3,7 @@ import { type Site, type Metadata, type Socials, SitePage } from "@types";
 
 export const SITE: Site = {
     name: "Problem-solving notes",
-    email: "anton@kernox.me",
+    email: "antonmyroshnychenko@gmail.com",
 };
 
 export const PAGE_METADATA: Record<SitePage, Metadata> = {

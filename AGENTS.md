@@ -17,6 +17,7 @@
 - Reusable UI belongs in `src/components/`.
 - Component contracts and ownership: `docs/components.md`. Read the relevant entry before changing or adding a component.
 - Styling uses Tailwind 4 through `@tailwindcss/vite`; global tokens and CSS live in `src/styles/global.css`.
+- Cloudflare deployment serves static `dist/` assets through `wrangler.jsonc`; do not add the Cloudflare SSR adapter unless site output becomes dynamic.
 - Favour small Astro primitives over new client-side code or framework migrations.
 - Use build-time Markdown transforms for Markdown output. Do not add DOM mutation for static markup.
 
