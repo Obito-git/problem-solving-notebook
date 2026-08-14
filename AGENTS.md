@@ -38,6 +38,9 @@
 ## Verification
 
 - Run `npm run build`, `lint`, and `git diff --check` after code changes.
+- For dependency maintenance, check `npm outdated`, `npm audit`, and peer/runtime
+  requirements first; keep major toolchain migrations separate from routine
+  patch and security updates.
 - Check generated HTML when changing Markdown, headings, table of contents, or static-route behavior.
 - Do not revert unrelated worktree changes.
 
