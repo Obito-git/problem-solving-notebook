@@ -14,7 +14,7 @@ const { title, description, backHref, backLabel } = Astro.props as Props;
 ---
 
 <PageLayout title={title} description={description}>
-  <Container>
+  <Container size="wide">
     <div class="animate">
       <BackToPrev href={backHref}>{backLabel}</BackToPrev>
     </div>

@@ -33,7 +33,7 @@ AI agents that maintain this repository.
 | `components/Link.astro` | Inline or navigation link. Requires `href`; `external` opens a protected new tab and `underline` defaults to true. Accepts `class`. Do not use for catalogue rows; use `ArrowLink`. |
 | `components/BackToPrev.astro` | Styled semantic return link. Requires fallback `href`; it never depends on browser history. |
 | `components/BackToTop.astro` | Footer-only button. Its `back-to-top` ID is required by `Head.astro`. |
-| `components/NotePage.astro` | Shared detail-note shell. Requires document metadata plus `backHref` and `backLabel`. Named slots: `header`, `toc`, and `after`; default slot is rendered Markdown. Use for LeetCode and Advent detail pages. |
+| `components/NotePage.astro` | Shared detail-note shell. Uses the `wide` page frame. Requires document metadata plus `backHref` and `backLabel`. Named slots: `header`, `toc`, and `after`; default slot is rendered Markdown. Use for LeetCode and Advent detail pages. |
 
 ## Collection Components
 
