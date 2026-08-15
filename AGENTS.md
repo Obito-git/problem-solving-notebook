@@ -42,6 +42,8 @@
 - For dependency maintenance, check `npm outdated`, `npm audit`, and peer/runtime
   requirements first; keep major toolchain migrations separate from routine
   patch and security updates.
+- GitHub Actions validates lint, static build, generated links, and Wrangler
+  deployment configuration; Cloudflare Workers Builds owns production deploys.
 - Check generated HTML when changing Markdown, headings, table of contents, or static-route behavior.
 - Do not revert unrelated worktree changes.
 

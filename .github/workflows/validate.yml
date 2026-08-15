@@ -1,0 +1,55 @@
+name: Validate
+
+on:
+  push:
+    branches: [dev, prod]
+  pull_request:
+    branches: [dev, prod]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7.0.1
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7.0.0
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Build site
+        run: npm run build
+
+      - name: Validate Cloudflare deployment
+        run: npx wrangler deploy --dry-run
+
+      - name: Check generated links
+        uses: lycheeverse/lychee-action@v2.9.0
+        with:
+          args: >-
+            --root-dir "${{ github.workspace }}/dist"
+            --verbose
+            --no-progress
+            --max-retries 3
+            --retry-wait-time 2
+            --timeout 20
+            "./dist/**/*.html"
+          fail: true
+          jobSummary: true
